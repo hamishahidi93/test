@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Arch</string>
+    <string name="holder_usd_price">$%.2f</string>
+    <string name="holder_percent">%%%.2f</string>
+
+    <string name="invalid_code_name">لطفا اطلاعات را کامل وارد کنید.</string>
+    <string name="active">active</string>
+
+    <string name="not_active">not active</string>
+    <string name="format_date">%1$tH:%1$tM</string>
+</resources>

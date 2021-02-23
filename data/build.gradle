@@ -1,0 +1,55 @@
+import io.github.msh91.arch.Libs
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation Libs.Common.kotlin
+    implementation Libs.Common.coroutines
+    implementation Libs.Common.arrowCore
+    implementation Libs.Common.arrowSyntax
+    implementation 'androidx.work:work-runtime:2.5.0'
+    implementation 'androidx.work:work-rxjava2:2.5.0'
+    kapt Libs.Common.arrowMeta
+    implementation Libs.Jetpack.lifecycleExtensions
+    implementation Libs.Jetpack.livedataKtx
+    implementation Libs.Common.dagger
+    kapt Libs.Common.daggerCompiler
+    implementation Libs.Jetpack.room
+    implementation Libs.Jetpack.roomKtx
+    kapt Libs.Jetpack.roomCompiler
+    implementation Libs.Common.gson
+    implementation Libs.Common.retrofit
+    implementation Libs.Common.retrofitGson
+    testImplementation Libs.Testing.junit
+    testImplementation Libs.Testing.mockitoKotlin
+}
