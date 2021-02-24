@@ -1,7 +1,6 @@
 package io.github.msh91.arch.ui.register
 
 import android.text.TextUtils
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import arrow.core.Either
 import io.github.msh91.arch.data.model.Error
@@ -34,24 +33,17 @@ class RegisterViewModel @Inject constructor(
     }
      fun register(name: String , code: String) {
 
-         Log.d(TAG, "token is = [${ appPreferencesHelper.tokenType +" "+appPreferencesHelper.token} ]")
-
          viewModelScope.launch {
             when (val either = registerRepository.register(name, code)) {
                 is Either.Right ->{
-//                    appPreferencesHelper.token = either.b
-                    appPreferencesHelper.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpbnNwZWN0b3JfaWQiOjIzLCJleHAiOjE5MjkzNzYzNTZ9.n9aKTLNL9x3l2MSMkuVSNZuzNVvA88xtkmxgJZsZ9x8"
-                    appPreferencesHelper.tokenType = "jwt"
+                    appPreferencesHelper.token = either.b
+//                    appPreferencesHelper.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpbnNwZWN0b3JfaWQiOjIzLCJleHAiOjE5MjkzNzYzNTZ9.n9aKTLNL9x3l2MSMkuVSNZuzNVvA88xtkmxgJZsZ9x8"
+//                    appPreferencesHelper.tokenType = "jwt"
                     jwtToken?.value = either.b
 
                 }
                 is Either.Left -> {
-                    appPreferencesHelper.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpbnNwZWN0b3JfaWQiOjIzLCJleHAiOjE5MjkzNzYzNTZ9.n9aKTLNL9x3l2MSMkuVSNZuzNVvA88xtkmxgJZsZ9x8"
-
-                    appPreferencesHelper.tokenType = "jwt"
-                    jwtToken?.value = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpbnNwZWN0b3JfaWQiOjIzLCJleHAiOjE5MjkzNzYzNTZ9.n9aKTLNL9x3l2MSMkuVSNZuzNVvA88xtkmxgJZsZ9x8"
-                    Log.d("REGISTER_VIEW_MODEL_TAG", "token2")
-//                    error?.value = either.a
+                    error?.value = either.a
                 }
             }
         }
@@ -59,13 +51,6 @@ class RegisterViewModel @Inject constructor(
 
 
      }
-
-
-
-    private fun showError(error: Error) {
-        Log.d(TAG, "showError() called  with: error = [$error]")
-    }
-
 
     companion object {
         private const val TAG = "HomeListViewModel"
