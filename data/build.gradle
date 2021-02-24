@@ -52,4 +52,7 @@ dependencies {
     implementation Libs.Common.retrofitGson
     testImplementation Libs.Testing.junit
     testImplementation Libs.Testing.mockitoKotlin
+    implementation Libs.Jetpack.paging
+    implementation Libs.Jetpack.pagingktx
+
 }

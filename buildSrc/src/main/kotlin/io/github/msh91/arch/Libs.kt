@@ -29,7 +29,10 @@ object Libs {
         const val fragment = "androidx.fragment:fragment-ktx:${Versions.fragment}"
         const val workManager = "androidx.work:work-runtime-ktx:${Versions.workManager}"
         const val rxWorkManager = "android.arch.work:work-rxjava2:${Versions.workManager}"
-        const val paging = "android.arch.paging:runtime:${Versions.paging}"
+        const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
+        const val pagingktx = "androidx.paging:paging-runtime-ktx:${Versions.paging}"
+
+//        const val rxjavaPaging = "androidx.paging:paging-rxjava2:${Versions.paging}"
 
 
     }

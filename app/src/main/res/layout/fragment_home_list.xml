@@ -7,6 +7,10 @@
             name="viewModel"
             type="io.github.msh91.arch.ui.home.list.HomeListViewModel" />
 
+<!--        <variable-->
+<!--            name="adapter"-->
+<!--            type="io.github.msh91.arch.ui.base.adapter.SingleLayoutAdapter" />-->
+
         <variable
             name="adapter"
             type="io.github.msh91.arch.ui.base.adapter.ServerAdapter" />
@@ -17,9 +21,10 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
+
             android:layout_height="match_parent"
-            android:adapter="@{adapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <ProgressBar

@@ -5,13 +5,13 @@ object Versions {
     const val gradle = "4.0.1"
     const val ktlint = "0.37.2"
     const val kotlin = "1.3.72"
-    const val coroutines = "1.3.3"
+    const val coroutines = "1.4.1"
     const val gradleVersions = "0.27.0"
     const val arch = "2.2.0"
     const val archTest = "2.1.0"
     const val material = "1.0.0"
     const val constraintLayout = "1.1.3"
-    const val room = "2.2.5"
+    const val room = "2.3.0-alpha01"
     const val dagger = "2.25.4"
     const val okHttp = "3.8.1"
     const val gson = "2.8.6"
@@ -26,7 +26,7 @@ object Versions {
     const val fragment = "1.2.5"
     const val androidNetworkTools = "0.4.5.3"
     const val workManager = "2.5.0"
-    const val paging = "2.1.0"
+    const val paging = "3.0.0-alpha13"
 
 
 

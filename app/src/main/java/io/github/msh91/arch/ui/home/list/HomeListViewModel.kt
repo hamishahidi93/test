@@ -3,22 +3,19 @@ package io.github.msh91.arch.ui.home.list
 import android.os.Handler
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import arrow.core.Either
 import arrow.core.Either.Left
 import arrow.core.Either.Right
 import com.stealthcopter.networktools.PortScan
 import io.github.msh91.arch.data.model.Error
-import io.github.msh91.arch.data.repository.inspectors.InspectorsRepository
 import io.github.msh91.arch.data.model.inquiryServer.InquiryServerDto
+import io.github.msh91.arch.data.repository.inspectors.InspectorsRepository
 import io.github.msh91.arch.data.source.db.entity.ServerModel
 import io.github.msh91.arch.ui.base.BaseViewModel
-import io.github.msh91.arch.ui.register.RegisterViewModel
-import io.github.msh91.arch.util.livedata.NonNullLiveData
 import io.github.msh91.arch.util.livedata.SingleEventLiveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,10 +23,6 @@ import javax.inject.Inject
 class HomeListViewModel @Inject constructor(
     private val inspectorsRepository: InspectorsRepository
 ) : BaseViewModel() {
-    val allServers: LiveData<List<ServerModel>>
-        get() = inspectorsRepository.getServerModels().flowOn(Dispatchers.Main)
-            .asLiveData(context = viewModelScope.coroutineContext)
-
 
     var error: SingleEventLiveData<Error>? = null
     var isLoading: SingleEventLiveData<Boolean>? = null
@@ -37,6 +30,18 @@ class HomeListViewModel @Inject constructor(
     var serverDetail: LiveData<ServerModel>? = null
 
     var isPName: String = ""
+
+    val allServers = Pager(
+        PagingConfig(
+            pageSize = 10,
+            prefetchDistance = 0,
+            enablePlaceholders = true,
+            maxSize = 200
+        )
+    ) {
+        inspectorsRepository.getServerModels()
+    }.flow
+
 
     init {
         error = SingleEventLiveData()
@@ -48,6 +53,7 @@ class HomeListViewModel @Inject constructor(
             isLoading!!.value = true
             getIsPName()
             getInquiryServer()
+
 
         }, 1000)
     }
@@ -75,7 +81,11 @@ class HomeListViewModel @Inject constructor(
         params["hash_key"] = serverModel.HashKey
         params["ip"] = serverModel.Ip
         params["received_isp"] = isPName
-        params["is_active"] = if(serverModel.IsActive == "active"){ "true" } else{"false"}
+        params["is_active"] = if (serverModel.IsActive == "active") {
+            "true"
+        } else {
+            "false"
+        }
 
         viewModelScope.launch {
             when (val either = inspectorsRepository.sendInspectedServer(params)) {
@@ -126,17 +136,17 @@ class HomeListViewModel @Inject constructor(
             }
 
             override fun onFinished(openPorts: java.util.ArrayList<Int>?) {
-                if (openPorts?.size!! > 0) {
-                    updateServer("active", inquiryServerDto)
-                } else {
-                    updateServer("not active", inquiryServerDto)
-
-                }
+//                if (openPorts?.size!! > 0) {
+//                    updateServer("active", inquiryServerDto)
+//                } else {
+//                    updateServer("not active", inquiryServerDto)
+//
+//                }
 
             }
 
         }
-        PortScan.onAddress(ip).setTimeOutMillis(1000).setPorts(inquiryServerDto.ports.map { it.toInt() } as ArrayList<Int>).setMethodTCP().doScan(portListener);
+//        PortScan.onAddress(ip).setTimeOutMillis(1000).setPorts(inquiryServerDto.ports.map { it.toInt() } as ArrayList<Int>).setMethodTCP().doScan(portListener);
 
     }
 
@@ -169,7 +179,9 @@ class HomeListViewModel @Inject constructor(
         }
     }
 
+
     companion object {
         private const val TAG = "HomeListViewModel"
+
     }
 }

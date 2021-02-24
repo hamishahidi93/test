@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import io.github.msh91.arch.app.ArchApplication
 import io.github.msh91.arch.data.source.db.AppDataBase
+import io.github.msh91.arch.data.source.db.RemoteKeysDao
 import io.github.msh91.arch.data.source.db.ServerDAO
 import javax.inject.Singleton
 
@@ -25,6 +26,12 @@ object DatabaseModule {
     @Provides
     fun provideServerDao(db: AppDataBase): ServerDAO {
         return db.serverDAO()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRemoteKeysDao(db: AppDataBase): RemoteKeysDao {
+        return db.getRepoDAO()
     }
 
 }

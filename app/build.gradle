@@ -66,6 +66,9 @@ dependencies {
     implementation Libs.Jetpack.rxWorkManager
     implementation Libs.Jetpack.paging
 
+    implementation Libs.Jetpack.pagingktx
+
+
     // Dagger
     implementation Libs.Common.dagger
     implementation Libs.Common.daggerAndroid

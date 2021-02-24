@@ -1,48 +1,54 @@
 package io.github.msh91.arch.ui.base.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.github.msh91.arch.R
 import io.github.msh91.arch.data.source.db.entity.ServerModel
+import io.github.msh91.arch.databinding.ItemServerBinding
 
-class ServerAdapter : PagedListAdapter<ServerModel, ServerAdapter.PokiViewHolder>(POKI_COMPARATOR) {
+class ServerAdapter : PagingDataAdapter<ServerModel, ServerAdapter.ServerViewHolder>(DIFF_CALLBACK ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokiViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_server, parent, false)
-        return PokiViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServerViewHolder {
+        val binding = DataBindingUtil.inflate<ItemServerBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.item_server,
+            parent,
+            false
+        )
+
+        return ServerViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: PokiViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ServerViewHolder, position: Int) {
         val poki = getItem(position)
+
         poki?.let { holder.bind(it) }
     }
 
-    class PokiViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//        private val pokiImage: ImageView = view.findViewById(R.id.item_poki_picture)
-//        private val pokiName: TextView = view.findViewById(R.id.item_poki_name)
+    class ServerViewHolder(val binding: ItemServerBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(poki: ServerModel) {
-//            pokiName.text = poki.name?.toUpperCase(Locale.FRENCH)
-//            Picasso.get()
-//                .load(Utils.IMAGE_BASE_URL + Utils.getPokemonIdFromUrl(poki.pokiUrl!!) + Utils.IMAGE_EXTENSION)
-//                .resize(96, 96)
-//                .centerInside()
-//                .placeholder(R.drawable.ic_loading)
-//                .into(pokiImage)
+        binding.item = poki
+            binding.txtName.setText(poki.Ip)
+            binding.status.text = poki.IsActive
         }
     }
 
     companion object {
-        private val POKI_COMPARATOR = object : DiffUtil.ItemCallback<ServerModel>() {
-            override fun areItemsTheSame(oldItem: ServerModel, newItem: ServerModel): Boolean =
-                oldItem.ServerId == newItem.ServerId
+        private val DIFF_CALLBACK  = object : DiffUtil.ItemCallback<ServerModel>() {
+            override fun areItemsTheSame(oldItem: ServerModel, newItem: ServerModel): Boolean {
 
-            override fun areContentsTheSame(oldItem: ServerModel, newItem: ServerModel): Boolean =
-                newItem.equals(oldItem)
+               return oldItem.ServerId == newItem.ServerId
+
+            }
+
+            override fun areContentsTheSame(oldItem: ServerModel, newItem: ServerModel): Boolean {
+                return newItem.equals(oldItem)
+
+            }
         }
     }
 }

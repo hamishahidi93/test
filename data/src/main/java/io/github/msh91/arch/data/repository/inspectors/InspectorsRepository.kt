@@ -1,8 +1,8 @@
 package io.github.msh91.arch.data.repository.inspectors
 
-import android.content.Context
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
+import androidx.paging.PagingSource
 import arrow.core.Either
 import io.github.msh91.arch.data.di.qualifier.Concrete
 import io.github.msh91.arch.data.mapper.ErrorMapper
@@ -14,21 +14,16 @@ import io.github.msh91.arch.data.source.db.entity.ServerModel
 import io.github.msh91.arch.data.source.remote.InspectorsDataSource
 import io.github.msh91.arch.data.source.remote.model.inspectedServer.InspectedServerResponseDto
 import io.github.msh91.arch.data.source.remote.model.isPName.IsPNameResponseDto
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.HashMap
 
 class InspectorsRepository @Inject constructor(
     errorMapper: ErrorMapper,
     @Concrete private val inspectorsDataSource: InspectorsDataSource,
     private val serverDAO: ServerDAO
-) : BaseRepository(errorMapper) {
+) : BaseRepository(errorMapper)  {
 
     suspend fun sendInspectedServer(
         params: HashMap<String, String>
@@ -92,10 +87,11 @@ class InspectorsRepository @Inject constructor(
         }
     }
 
-    fun getServerModels(): Flow<List<ServerModel>> {
 
+    fun getServerModels(): PagingSource<Int, ServerModel> {
         return serverDAO.getServerModels()
     }
+
 
 
 }

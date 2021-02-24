@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class FetchingWorker(
-    private val application: Context,
+    application: Context,
     workerParameters: WorkerParameters,
     private val inspectorsRepository: InspectorsRepository
 ) : CoroutineWorker(application, workerParameters) {
