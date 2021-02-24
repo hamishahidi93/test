@@ -1,7 +1,6 @@
 package io.github.msh91.arch.data.repository.inspectors
 
 import androidx.annotation.WorkerThread
-import androidx.paging.DataSource
 import androidx.paging.PagingSource
 import arrow.core.Either
 import io.github.msh91.arch.data.di.qualifier.Concrete

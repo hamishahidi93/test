@@ -1,5 +1,4 @@
 package io.github.msh91.arch.ui.home.list
-
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -8,7 +7,6 @@ import io.github.msh91.arch.databinding.FragmentHomeListBinding
 import io.github.msh91.arch.ui.base.BaseFragment
 import io.github.msh91.arch.ui.base.ViewModelScope
 import io.github.msh91.arch.ui.base.adapter.ServerAdapter
-import kotlinx.android.synthetic.main.fragment_home_list.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -16,20 +14,16 @@ class HomeListFragment : BaseFragment<HomeListViewModel, FragmentHomeListBinding
 
     override val viewModel: HomeListViewModel by getLazyViewModel(ViewModelScope.ACTIVITY)
     override val layoutId: Int = R.layout.fragment_home_list
-    private lateinit var  serverAdapter: ServerAdapter
 
     override fun onViewInitialized(binding: FragmentHomeListBinding) {
         super.onViewInitialized(binding)
         binding.viewModel = viewModel
 
-        serverAdapter = ServerAdapter()
-
-        binding.adapter = serverAdapter
-        recycler.adapter = serverAdapter
+        binding.adapter = ServerAdapter()
 
         lifecycleScope.launch {
             viewModel.allServers.collectLatest {
-                serverAdapter.submitData(it) }
+                binding.adapter?.submitData(it) }
         }
 
 
