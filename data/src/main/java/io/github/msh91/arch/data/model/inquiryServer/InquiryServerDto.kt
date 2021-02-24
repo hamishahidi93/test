@@ -12,6 +12,6 @@ data class InquiryServerDto(
     @SerializedName("ports")
     val ports: ArrayList<String>,
     @SerializedName("connection_status")
-    val connection_status: String
+    var connection_status: String
 
 )

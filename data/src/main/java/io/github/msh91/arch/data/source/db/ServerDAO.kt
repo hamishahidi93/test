@@ -5,6 +5,7 @@ import androidx.paging.DataSource
 import androidx.paging.PagingSource
 import androidx.room.*
 import io.github.msh91.arch.data.source.db.entity.ServerModel
+import io.reactivex.Observable
 
 @Dao
 interface ServerDAO {
@@ -13,7 +14,7 @@ interface ServerDAO {
     fun getServerDetail(serverId: String): LiveData<ServerModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertServer(serverModel: ServerModel?)
+    fun insertServerToDb(serverModel: ServerModel?)
 
     @Update
     suspend fun updateServer(serverModel: ServerModel)
@@ -26,9 +27,6 @@ interface ServerDAO {
 
     @Query("DELETE FROM InquiryServer")
     suspend fun deleteAll()
-
-//    @Query("SELECT * FROM InquiryServer Order By Date DESC LIMIT :count")
-//    fun getServerModels(count : Int): Flow<List<ServerModel>>
 
     @Query("SELECT * FROM InquiryServer Order By Date DESC")
     fun getServerModels(): PagingSource<Int, ServerModel>

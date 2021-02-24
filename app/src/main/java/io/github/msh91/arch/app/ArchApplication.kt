@@ -36,13 +36,6 @@ class ArchApplication : DaggerApplication() ,Configuration.Provider {
         applicationScope.launch {
             setupRecurringWork()
         }
-//        WorkManager.initialize(
-//            this,
-//            Configuration.Builder()
-//                .setWorkerFactory(myWorkerFactory)
-//                .build()
-//        )
-
         DaggerAppComponent.factory().create(this).inject(this);
 
     }
@@ -62,7 +55,6 @@ class ArchApplication : DaggerApplication() ,Configuration.Provider {
             .Builder(FetchingWorker::class.java,15, TimeUnit.MINUTES)
 //            .setInitialDelay(15, TimeUnit.MINUTES)
             .setConstraints(constraints)
-//            .addTag(FetchingWorker.WORK_NAME)
             .build()
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(

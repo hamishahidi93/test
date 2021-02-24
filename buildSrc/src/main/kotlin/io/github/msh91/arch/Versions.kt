@@ -27,6 +27,12 @@ object Versions {
     const val androidNetworkTools = "0.4.5.3"
     const val workManager = "2.5.0"
     const val paging = "3.0.0-alpha13"
+    const val rxAndroid = "2.1.0"
+    const val rxjava = "2.2.3"
+    const val retrofitRxjava = "1.0.0"
+
+
+
 
 
 

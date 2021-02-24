@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import io.github.msh91.arch.BuildConfig
@@ -108,6 +109,7 @@ object NetworkModule {
         return Retrofit.Builder().client(okHttpClient)
             // create gson converter factory
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             // get base url from SecretFields interface
             .baseUrl(secretFields.getBaseUrl())
             .build()
@@ -181,6 +183,8 @@ object NetworkModule {
         return Retrofit.Builder().client(okHttpClient)
             // create gson converter factory
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+
             // get base url from SecretFields interface
             .baseUrl(SecretFields().getBaseUrl())
             .build()

@@ -21,15 +21,13 @@ data class ServerModel(
     @ColumnInfo(name = "ip")
     var Ip: String,
 
-    @TypeConverters(ListConverter::class)
-    @ColumnInfo(name = "ports")
-    var Ports: List<String>,
-
-    @ColumnInfo(name = "connectionStatus")
-    var ConnectionStatus: String,
-
     @ColumnInfo(name = "isActive")
     var IsActive: String,
+
+    @ColumnInfo(name = "receivedIsp")
+    var ReceivedIsp: String,
+
+
 
     @TypeConverters(DateConverter::class)
     @ColumnInfo(name = "date")

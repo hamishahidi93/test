@@ -22,15 +22,13 @@ class HomeListFragment : BaseFragment<HomeListViewModel, FragmentHomeListBinding
         binding.adapter = ServerAdapter()
 
         lifecycleScope.launch {
-            viewModel.allServers.collectLatest {
-                binding.adapter?.submitData(it) }
+            viewModel.allServersFromDb.collectLatest {
+                binding.adapter?.submitData(it)
+            }
         }
 
 
-        viewModel.error?.observe(this, Observer {
-//            Toast.makeText(context, viewModel.error?.value.toString(), Toast.LENGTH_SHORT).show();
 
-        })
         viewModel.isLoading?.observe(this, Observer { visibility ->
             binding.progressBar.visibility = if (visibility) View.VISIBLE else View.INVISIBLE
         })

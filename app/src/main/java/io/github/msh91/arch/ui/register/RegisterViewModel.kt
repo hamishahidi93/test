@@ -41,11 +41,8 @@ class RegisterViewModel @Inject constructor(
                 is Either.Right ->{
 //                    appPreferencesHelper.token = either.b
                     appPreferencesHelper.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpbnNwZWN0b3JfaWQiOjIzLCJleHAiOjE5MjkzNzYzNTZ9.n9aKTLNL9x3l2MSMkuVSNZuzNVvA88xtkmxgJZsZ9x8"
-
                     appPreferencesHelper.tokenType = "jwt"
                     jwtToken?.value = either.b
-                    Log.d("REGISTER_VIEW_MODEL_TAG", "token1")
-
 
                 }
                 is Either.Left -> {

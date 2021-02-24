@@ -29,10 +29,22 @@
             android:textColor="@color/textPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/isp"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="ip" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/isp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@{item.receivedIsp}"
+            android:textColor="@color/textPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_name"
+            tools:text="isp" />
 
 
         <TextView
@@ -40,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
-            android:text="@{item.isActive}"
+            android:text="@{`availablity: `+item.isActive}"
             android:textColor="@color/colorAccent"
             android:textSize="18sp"
             android:textStyle="bold"

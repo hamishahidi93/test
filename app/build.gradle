@@ -82,6 +82,11 @@ dependencies {
     implementation Libs.Common.stetho
     implementation Libs.Common.stetho_OkHttp
 
+    //RXJava
+    implementation Libs.Common.rxAndroid
+    implementation Libs.Common.rxjava
+    implementation Libs.Common.retrofitRxjava
+
     // Glide
     implementation Libs.Common.glide
     kapt Libs.Common.glideCompiler

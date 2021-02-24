@@ -1,4 +1,4 @@
-package io.github.msh91.arch.data.source.remote.model.isPName
+package io.github.msh91.arch.data.model.isPName
 
 import com.google.gson.annotations.SerializedName
 

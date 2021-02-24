@@ -58,6 +58,11 @@ object Libs {
         const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
         const val androidNetworkTools = "com.github.stealthcopter:AndroidNetworkTools:${Versions.androidNetworkTools}"
 
+        const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
+        const val rxjava = "io.reactivex.rxjava2:rxjava:${Versions.rxjava}"
+        const val retrofitRxjava = "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${Versions.retrofitRxjava}"
+
+
     }
 
     object Testing {
