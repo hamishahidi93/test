@@ -1,4 +1,4 @@
-package io.github.msh91.arch.ui.base.adapter
+package io.github.msh91.arch.ui.home.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

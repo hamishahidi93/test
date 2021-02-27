@@ -7,7 +7,7 @@
 
         <variable
             name="adapter"
-            type="io.github.msh91.arch.ui.base.adapter.ServerAdapter" />
+            type="io.github.msh91.arch.ui.home.list.ServerAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

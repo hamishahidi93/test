@@ -37,8 +37,6 @@ dependencies {
     implementation Libs.Common.coroutines
     implementation Libs.Common.arrowCore
     implementation Libs.Common.arrowSyntax
-    implementation 'androidx.work:work-runtime:2.5.0'
-    implementation 'androidx.work:work-rxjava2:2.5.0'
     kapt Libs.Common.arrowMeta
     implementation Libs.Jetpack.lifecycleExtensions
     implementation Libs.Jetpack.livedataKtx
@@ -55,4 +53,11 @@ dependencies {
     implementation Libs.Jetpack.paging
     implementation Libs.Jetpack.pagingktx
 
+    //androidNetworkTools
+    implementation Libs.Common.androidNetworkTools
+
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
 }

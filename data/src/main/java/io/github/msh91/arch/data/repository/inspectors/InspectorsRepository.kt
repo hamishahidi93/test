@@ -1,16 +1,16 @@
 package io.github.msh91.arch.data.repository.inspectors
 
 import androidx.paging.PagingSource
+import com.stealthcopter.networktools.PortScan
 import io.github.msh91.arch.data.di.qualifier.Concrete
 import io.github.msh91.arch.data.mapper.ErrorMapper
-import io.github.msh91.arch.data.model.inquiryServer.InquiryServerDto
+import io.github.msh91.arch.data.model.inquiry.InquiryServerDto
+import io.github.msh91.arch.data.model.inquiry.InspectedServerRequest
+import io.github.msh91.arch.data.model.inquiry.IsPNameResponseDto
 import io.github.msh91.arch.data.repository.BaseRepository
 import io.github.msh91.arch.data.source.db.ServerDAO
 import io.github.msh91.arch.data.source.db.entity.ServerModel
 import io.github.msh91.arch.data.source.remote.InspectorsDataSource
-import io.github.msh91.arch.data.model.inspectedServer.InspectedServerResponseDto
-import io.github.msh91.arch.data.model.isPName.IsPNameResponseDto
-import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
 
@@ -20,26 +20,38 @@ class InspectorsRepository @Inject constructor(
     private val serverDAO: ServerDAO
 ) : BaseRepository(errorMapper) {
 
-    fun sendInspectedServer(
-        params: HashMap<String, String>
-    ): Observable<InspectedServerResponseDto> {
-        return inspectorsDataSource.sendInspectedServer(params)
-    }
-
-
-    fun getInquiryServer(): Observable<List<InquiryServerDto>> {
-        return inspectorsDataSource.getInquiryServer()
-    }
-
-    fun getIsPName(): Observable<IsPNameResponseDto> {
+    suspend fun getIsPName(): IsPNameResponseDto {
         return inspectorsDataSource.getIspName("http://ip-api.com/json/")
     }
 
+    suspend fun sendInspectedServer(inspectedServerRequest: InspectedServerRequest) {
+        val response =  inspectorsDataSource.sendInspectedServer(inspectedServerRequest)
+        insertServerToDb(
+            response.id,
+            response.hash_key,
+            response.ip,
+            response.received_isp,
+            inspectedServerRequest.isActive
+        )
+    }
 
-    fun insertServerToDb(serverId: String, hashKey: String, ip: String
-                         ,receivedIsp: String, isActive: String) {
+    suspend fun getInquiryServers(): List<InquiryServerDto> {
+        return inspectorsDataSource.getInquiryServer()
+    }
+
+
+    fun scanIpPorts(inquiryServerDto: InquiryServerDto): List<Int> {
+        return PortScan
+            .onAddress(inquiryServerDto.ip)
+            .setMethodUDP()
+            .setPorts(inquiryServerDto.ports.map { it.toInt() } as ArrayList<Int>)
+            .doScan() ?: emptyList()
+    }
+
+
+    private fun insertServerToDb(serverId: String, hashKey: String, ip: String,receivedIsp: String, isActive: String) {
         val serverModel = ServerModel(serverId, hashKey, ip, isActive,receivedIsp, Date())
-        return serverDAO.insertServerToDb(serverModel)
+        serverDAO.insertServerToDb(serverModel)
     }
 
 

@@ -27,8 +27,6 @@ data class ServerModel(
     @ColumnInfo(name = "receivedIsp")
     var ReceivedIsp: String,
 
-
-
     @TypeConverters(DateConverter::class)
     @ColumnInfo(name = "date")
     var Date: Date

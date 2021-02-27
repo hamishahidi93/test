@@ -1,6 +1,7 @@
 package io.github.msh91.arch.ui.base
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -39,5 +40,10 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewDataBinding> : DaggerAppC
         // observe viewModel uiActions in order to pass this activity as argument of uiAction
         viewModel.activityAction.observe(this, Observer { it?.invoke(this) })
         onViewInitialized(binding)
+    }
+
+    fun showToast(msg : String?){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
     }
 }

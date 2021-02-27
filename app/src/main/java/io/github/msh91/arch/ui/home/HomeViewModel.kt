@@ -5,4 +5,6 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val homeNavigator: HomeNavigator
-) : BaseViewModel()
+) : BaseViewModel(){
+
+}

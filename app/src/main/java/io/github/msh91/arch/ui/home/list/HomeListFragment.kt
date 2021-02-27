@@ -1,12 +1,9 @@
 package io.github.msh91.arch.ui.home.list
-import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import io.github.msh91.arch.R
 import io.github.msh91.arch.databinding.FragmentHomeListBinding
 import io.github.msh91.arch.ui.base.BaseFragment
 import io.github.msh91.arch.ui.base.ViewModelScope
-import io.github.msh91.arch.ui.base.adapter.ServerAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -20,27 +17,23 @@ class HomeListFragment : BaseFragment<HomeListViewModel, FragmentHomeListBinding
         binding.viewModel = viewModel
         binding.adapter = ServerAdapter()
 
-        getServersFromDb()
-
-        binding.swipe.setOnRefreshListener {
-            getServersFromDb()
-        }
-
-        viewModel.isLoading?.observe(this, Observer { visibility ->
-            binding.progressBar.visibility = if (visibility) View.VISIBLE else View.INVISIBLE
-        })
-    }
-
-    private fun getServersFromDb() {
         binding.swipe.isRefreshing = true
 
-        lifecycleScope.launch {
-            viewModel.allServersFromDb.collectLatest {
-                binding.swipe.isRefreshing = false
-                binding.adapter?.submitData(it)
-            }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.allServersFromDb
+                .collectLatest {
+                    binding.swipe.isRefreshing = false
+                    binding.adapter?.submitData(it)
+                }
         }
+
+
+        binding.swipe.setOnRefreshListener {
+            binding.adapter?.refresh()
+        }
+
     }
+
 
 
 }
