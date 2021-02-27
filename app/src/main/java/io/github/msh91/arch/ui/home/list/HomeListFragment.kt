@@ -18,20 +18,28 @@ class HomeListFragment : BaseFragment<HomeListViewModel, FragmentHomeListBinding
     override fun onViewInitialized(binding: FragmentHomeListBinding) {
         super.onViewInitialized(binding)
         binding.viewModel = viewModel
-
         binding.adapter = ServerAdapter()
 
-        lifecycleScope.launch {
-            viewModel.allServersFromDb.collectLatest {
-                binding.adapter?.submitData(it)
-            }
+        getServersFromDb()
+
+        binding.swipe.setOnRefreshListener {
+            getServersFromDb()
         }
-
-
 
         viewModel.isLoading?.observe(this, Observer { visibility ->
             binding.progressBar.visibility = if (visibility) View.VISIBLE else View.INVISIBLE
         })
+    }
+
+    private fun getServersFromDb() {
+        binding.swipe.isRefreshing = true
+
+        lifecycleScope.launch {
+            viewModel.allServersFromDb.collectLatest {
+                binding.swipe.isRefreshing = false
+                binding.adapter?.submitData(it)
+            }
+        }
     }
 
 

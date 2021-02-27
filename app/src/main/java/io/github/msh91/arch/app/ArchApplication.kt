@@ -58,8 +58,8 @@ class ArchApplication : DaggerApplication() ,Configuration.Provider {
             .build()
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            "FetchingWorker.WORK_NAME",
-            ExistingPeriodicWorkPolicy.REPLACE,
+            "FetchingWorker",
+            ExistingPeriodicWorkPolicy.KEEP,
             repeatingRequest)
     }
 
