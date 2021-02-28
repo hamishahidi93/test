@@ -28,12 +28,8 @@ object Libs {
         const val navigationFragment = "androidx.navigation:navigation-fragment:${Versions.navigationComponent}"
         const val fragment = "androidx.fragment:fragment-ktx:${Versions.fragment}"
         const val workManager = "androidx.work:work-runtime-ktx:${Versions.workManager}"
-        const val rxWorkManager = "android.arch.work:work-rxjava2:${Versions.workManager}"
         const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
         const val pagingktx = "androidx.paging:paging-runtime-ktx:${Versions.paging}"
-
-//        const val rxjavaPaging = "androidx.paging:paging-rxjava2:${Versions.paging}"
-
 
     }
 
@@ -57,10 +53,6 @@ object Libs {
         const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
         const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
         const val androidNetworkTools = "com.github.stealthcopter:AndroidNetworkTools:${Versions.androidNetworkTools}"
-
-        const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
-        const val rxjava = "io.reactivex.rxjava2:rxjava:${Versions.rxjava}"
-        const val retrofitRxjava = "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${Versions.retrofitRxjava}"
 
 
     }

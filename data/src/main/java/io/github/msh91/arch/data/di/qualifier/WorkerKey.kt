@@ -1,7 +1,6 @@
 package io.github.msh91.arch.data.di.qualifier
 
 import androidx.work.ListenableWorker
-import androidx.work.RxWorker
 import dagger.MapKey
 import kotlin.reflect.KClass
 

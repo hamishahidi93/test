@@ -1,11 +1,9 @@
 package io.github.msh91.arch.data.source.db
 
 import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 import androidx.paging.PagingSource
 import androidx.room.*
 import io.github.msh91.arch.data.source.db.entity.ServerModel
-import io.reactivex.Observable
 
 @Dao
 interface ServerDAO {

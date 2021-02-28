@@ -52,6 +52,7 @@ dependencies {
     testImplementation Libs.Testing.mockitoKotlin
     implementation Libs.Jetpack.paging
     implementation Libs.Jetpack.pagingktx
+    implementation Libs.Jetpack.workManager
 
     //androidNetworkTools
     implementation Libs.Common.androidNetworkTools

@@ -63,9 +63,7 @@ dependencies {
     implementation Libs.Jetpack.navigationUi
     implementation Libs.Jetpack.fragment
     implementation Libs.Jetpack.workManager
-    implementation Libs.Jetpack.rxWorkManager
     implementation Libs.Jetpack.paging
-
     implementation Libs.Jetpack.pagingktx
 
 
@@ -81,11 +79,6 @@ dependencies {
     implementation Libs.Common.okHttpInterceptor
     implementation Libs.Common.stetho
     implementation Libs.Common.stetho_OkHttp
-
-    //RXJava
-    implementation Libs.Common.rxAndroid
-    implementation Libs.Common.rxjava
-    implementation Libs.Common.retrofitRxjava
 
     // Glide
     implementation Libs.Common.glide
